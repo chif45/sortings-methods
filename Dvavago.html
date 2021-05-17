@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>DvaVaGo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
+body{
+  background-color: teal;
+}
+img{
+  width: 30%;
+  margin: 10px;
+}
+
+tr{
+  border: 5px solid black;
+  padding-top: 10px;
+}
+</style>
+<script>
+comarr = [["Хороший отель с доброжелательным персоналом. Место спокойное чуть в стороне от дороги. Все чисто и комфортно и уютно. Из недостатков - завтрак на любителя, мне досталтсь каша йогурт блины и маленькие кусочки сыра и колбасы. В номере в диспенсере не было мыло. Дешевые номера разных типов, мне достался на 2 этаже очень маленький. В целом за свои деньги очень даже неплохое место.",10],["Отличный отель. Большой чистый номер. Завтраки вкусные",5], ["Очень плохой отель",2]]
+var comid = 0
+
+function recreatecom(){
+  comid = 0
+  for (var i = 0, endI = comarr.length - 1; i < endI; i++) {
+      for (var j = 0, endJ = endI - i; j < endJ; j++) {
+          if (comarr[j][1] > comarr[j + 1][1]) {
+              var swap = comarr[j];
+              comarr[j] = comarr[j + 1];
+              comarr[j + 1] = swap;
+          }
+      }
+  }
+  comarr.reverse()
+
+  document.getElementsByClassName("comments")[0].outerHTML = "";
+
+  let l = document.createElement("table")
+  l.className = "comments"
+  document.getElementsByClassName("dc")[0].appendChild(l);
+
+  for (let i = 0; i < comarr.length; i++) {
+  let sd = document.createElement('tr');
+  sd.innerHTML = "<td style='padding-top:10px'>"+comarr[i][0]+"</td><td class='"+comid+"'>"+comarr[i][1]+"</td><td><input type='button' value='❤' style='color: red; background-color: rgba(0, 0, 0, 0); border: none;' onclick='pluslike("+comid+")'></td>";
+  document.getElementsByClassName("comments")[0].appendChild(sd);
+  comid++
+}
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  recreatecom()
+}, false);
+
+function create_comment(){
+  comarr.push([document.getElementById('tcomment').value,0])
+  comid++
+  recreatecom()
+}
+
+function pluslike(a){
+  document.getElementsByClassName(a)[0].innerText = parseInt(document.getElementsByClassName(a)[0].innerText)+1
+  comarr[a][1]++
+  recreatecom()
+}
+</script>
+</head>
+<body>
+  <a href="./index.html" style="text-decoration: none; color: black;font-size: 30px;">Назад</a> 
+  <div style="text-align: center;">
+    <img src="https://image.freepik.com/free-photo/modern-luxury-hotel-and-office-reception-and-lounge-with-meeting-room_105762-1772.jpg">
+    <img src="https://image.freepik.com/free-photo/cozy-studio-apartment-with-bedroom-and-living-space_1262-12323.jpg">
+    <img src="https://image.freepik.com/free-photo/beautiful-luxury-outdoor-swimming-pool-in-hotel-and-resort_74190-7433.jpg">
+  </div>
+  <div align="center">
+  <span style="font-family: 'Rubik', sans-serif; color: skyblue; font-size: 50px;">
+    Dva
+  </span>
+  <span style="font-family: 'Rubik', sans-serif; color: yellow; font-size: 50px;">
+    va
+  </span>
+  <span style="font-family: 'Rubik', sans-serif; color: red; font-size: 50px;">
+    go
+  </span>
+  <span style="font-family: 'Rubik', sans-serif; color: white; font-size: 50px;">
+     - Отели и гостиницы
+  </span>
+  </div>
+
+  <div style="text-align: center;font-size: 20px; font-family: 'Rubik';">
+  Очень комфортабельная гостиница в городе ***, с реновированными (отремнтированными) номерами - гостиница Dva va go.
+  Гостиница Dva va go в Санкт-Петербурге построена в конце 60-х годов. В 2004 году номерной фонд гостиницы Dva va go был полностью реновирован.
+  Гостиница Dva va go располагается в чарующем, тихом уголке города, недалеко от станции метро "Московская" и южных ворот города ***, всего в десяти минутах езды от аэропорта "Пулково" и пятнадцати - до Невского проспекта.
+  Из окон гостиницы виден путевой дворец Екатерины Второй и Предтеченская церковь (Чесменская).
+  Гостиница Dva va go расположена в зеленом жилом районе Санкт-Петербурга в 5 минутах до выставочного центра СКК.
+  Номера в гостинице Dva va go - люкс, полулюкс, двухместные и одноместные номера,есть четырехместные номера.
+  </div>
+
+  <div  style="text-align: center; margin-top: 1%;">
+    <input type="text" id="tcomment" placeholder="Оставьте отзыв..." style="border-radius: 7px; font-family: 'Rubik', sans-serif; font-size: 25pt; color: black;">
+    <input type="button" value="Опубликовать" onclick="create_comment()" style="border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 25pt; color: white;">
+  </div>
+
+  <div align="center" style="border-radius: 7px; font-family: 'Rubik', sans-serif; font-size: 15pt; color: white; margin-top: 6%;" class="dc">
+    <table class="comments">
+    </table>
+  </div>
+  
+</body>
